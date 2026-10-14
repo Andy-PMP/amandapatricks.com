@@ -1,0 +1,77 @@
+---
+import Icon from './Icon.astro';
+import { profile } from '../data/resume';
+
+interface Props {
+  hasResume: boolean;
+}
+const { hasResume } = Astro.props;
+---
+
+<section class="hero" id="top">
+  <div class="container">
+    <p class="eyebrow reveal">{profile.headline}</p>
+    <h1 class="reveal">
+      {profile.name}<span class="cred">, {profile.credential}</span>
+    </h1>
+    <p class="tagline reveal">{profile.tagline}</p>
+    <p class="meta reveal">
+      <Icon name="pin" />
+      <span>{profile.location}</span>
+      <span class="dot" aria-hidden="true">·</span>
+      <span>Completing an M.S. in AI Engineering</span>
+    </p>
+    <div class="ctas reveal no-print">
+      {hasResume && (
+        <a class="btn btn-primary" href={profile.resumePdf} download>
+          <Icon name="download" /> Download résumé
+        </a>
+      )}
+      <a class="btn" href={profile.linkedin} target="_blank" rel="noopener">
+        <Icon name="linkedin" /> LinkedIn
+      </a>
+      <a class="btn" href={profile.github} target="_blank" rel="noopener">
+        <Icon name="github" /> GitHub
+      </a>
+      <a class={hasResume ? 'btn' : 'btn btn-primary'} href={`mailto:${profile.email}`}>
+        <Icon name="mail" /> Email me
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero { padding-block: clamp(4rem, 12vw, 8.5rem) clamp(3.5rem, 8vw, 6rem); }
+  h1 {
+    font-size: clamp(2.75rem, 8.5vw, 5.75rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    font-variation-settings: 'opsz' 144;
+    margin-bottom: 1.5rem;
+  }
+  .cred { color: var(--muted); font-size: 0.4em; letter-spacing: 0.04em; }
+  .tagline {
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 2.6vw, 1.75rem);
+    line-height: 1.4;
+    max-width: 38ch;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+  }
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; color: var(--muted); font-size: 0.95rem; margin-bottom: 2.25rem; }
+  .meta :global(svg) { width: 1rem; height: 1rem; }
+  .dot { opacity: 0.6; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .reveal:nth-child(2) { transition-delay: 0.06s; }
+  .reveal:nth-child(3) { transition-delay: 0.12s; }
+  .reveal:nth-child(4) { transition-delay: 0.18s; }
+  .reveal:nth-child(5) { transition-delay: 0.24s; }
+
+  @media print {
+    .hero { padding-block: 0 1rem; }
+    h1 { font-size: 26pt; margin-bottom: 0.4rem; }
+    .tagline { font-size: 13pt; margin-bottom: 0.4rem; }
+    .meta { margin-bottom: 0; }
+    .meta::after { content: '  ·  amanda.patricks@gmail.com  ·  linkedin.com/in/amandapatricks'; white-space: pre; }
+  }
+</style>

@@ -1,0 +1,46 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.astro';
+
+interface Props {
+  projects: CollectionEntry<'projects'>[];
+}
+const { projects } = Astro.props;
+---
+
+<section class="section no-print" id="projects" aria-labelledby="projects-title">
+  <div class="container">
+    <p class="eyebrow">Projects</p>
+    <h2 class="section-title reveal" id="projects-title">Things I’ve built</h2>
+    <ul class="grid">
+      {projects.map((p) => (
+        <li class="card reveal">
+          <h3>{p.data.title}</h3>
+          <p class="summary">{p.data.summary}</p>
+          {p.data.tags.length > 0 && (
+            <ul class="tags">{p.data.tags.map((t) => <li>{t}</li>)}</ul>
+          )}
+          <div class="links">
+            {p.data.link && <a href={p.data.link} target="_blank" rel="noopener">View <Icon name="arrow" /></a>}
+            {p.data.repo && <a href={p.data.repo} target="_blank" rel="noopener">Code <Icon name="arrow" /></a>}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  ul { list-style: none; margin: 0; padding: 0; }
+  .grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); }
+  .card { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; transition: border-color 0.2s; }
+  .card:hover { border-color: var(--accent); }
+  h3 { font-size: 1.35rem; font-weight: 400; margin-bottom: 0.6rem; }
+  .summary { color: var(--muted); font-size: 0.97rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+  .tags li { font-size: 0.78rem; background: var(--accent-soft); padding: 0.2rem 0.6rem; border-radius: 999px; }
+  .links { display: flex; gap: 1.25rem; margin-top: auto; }
+  .links a { display: inline-flex; align-items: center; gap: 0.25rem; font-weight: 500; font-size: 0.92rem; text-decoration: none; }
+  .links a:hover { text-decoration: underline; }
+  .links :global(svg) { width: 0.95rem; height: 0.95rem; }
+</style>

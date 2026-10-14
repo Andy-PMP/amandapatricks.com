@@ -1,0 +1,12 @@
+---
+title: Project name
+summary: One or two sentences on what it is and why it matters.
+date: 2026-11-01
+tags: [AI, Automation]
+link: https://example.com
+repo: https://github.com/Andy-PMP/project-name
+---
+
+Copy this file to `my-project.md` (drop the `.example`) and edit it.
+The Projects section on the homepage shows up automatically once a project exists.
+Set `draft: true` to hide one without deleting it.

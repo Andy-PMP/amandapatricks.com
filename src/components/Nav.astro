@@ -1,0 +1,67 @@
+---
+import Icon from './Icon.astro';
+import { profile } from '../data/resume';
+
+interface Props {
+  links: { href: string; label: string }[];
+}
+const { links } = Astro.props;
+---
+
+<header class="nav no-print">
+  <div class="container nav-inner">
+    <a href="#top" class="brand" aria-label={`${profile.name}, back to top`}>
+      <span class="mono" aria-hidden="true">AP</span>
+      <span class="brand-name">{profile.name}</span>
+    </a>
+    <nav aria-label="Sections">
+      <ul>
+        {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+    <button type="button" class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+      <span class="icon-moon"><Icon name="moon" /></span>
+      <span class="icon-sun"><Icon name="sun" /></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: saturate(1.4) blur(10px);
+    -webkit-backdrop-filter: saturate(1.4) blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner { display: flex; align-items: center; gap: 1rem; height: 4rem; }
+  .brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--text); margin-right: auto; }
+  .mono {
+    display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 8px;
+    background: var(--accent); color: var(--accent-text);
+    font: 600 0.85rem/1 var(--font-display); letter-spacing: 0.02em;
+  }
+  .brand-name { font-weight: 600; font-size: 0.95rem; }
+  ul { display: flex; gap: clamp(0.75rem, 2.5vw, 1.75rem); list-style: none; margin: 0; padding: 0; }
+  nav a { color: var(--muted); text-decoration: none; font-size: 0.92rem; font-weight: 500; }
+  nav a:hover { color: var(--text); }
+
+  .theme-toggle {
+    display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--surface); color: var(--text); cursor: pointer;
+  }
+  .theme-toggle:hover { border-color: var(--accent); }
+  .theme-toggle :global(svg) { width: 1.05rem; height: 1.05rem; }
+  .icon-sun { display: none; }
+  :global([data-theme-toggle][aria-pressed='true']) .icon-sun { display: grid; }
+  :global([data-theme-toggle][aria-pressed='true']) .icon-moon { display: none; }
+
+  @media (max-width: 640px) {
+    .brand-name { display: none; }
+    nav a { font-size: 0.85rem; }
+  }
+  @media (max-width: 380px) {
+    ul { gap: 0.6rem; }
+    nav a { font-size: 0.8rem; }
+  }
+</style>

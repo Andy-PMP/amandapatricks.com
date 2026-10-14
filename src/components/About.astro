@@ -1,0 +1,54 @@
+---
+import { summary, stats, competencies } from '../data/resume';
+---
+
+<section class="section" id="about" aria-labelledby="about-title">
+  <div class="container">
+    <p class="eyebrow">About</p>
+    <h2 class="section-title reveal" id="about-title">Strategy in, outcomes out.</h2>
+
+    <div class="grid">
+      <div class="summary reveal">
+        {summary.map((p) => <p>{p}</p>)}
+      </div>
+
+      <dl class="stats reveal">
+        {stats.map((s) => (
+          <div class="stat">
+            <dt>{s.label}</dt>
+            <dd>{s.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+
+    <h3 class="sub reveal">Core competencies</h3>
+    <ul class="tags reveal">
+      {competencies.map((c) => <li>{c}</li>)}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; }
+  @media (min-width: 860px) { .grid { grid-template-columns: 1.5fr 1fr; gap: 4rem; } }
+  .summary p { color: var(--text); max-width: 62ch; }
+  .summary p:first-child { font-size: 1.15rem; }
+
+  .stats { margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; align-self: start; }
+  .stat { background: var(--surface); padding: 1.1rem 1.2rem; display: flex; flex-direction: column-reverse; justify-content: flex-end; }
+  .stat:first-child { grid-column: 1 / -1; }
+  dd { margin: 0; font: 400 clamp(1.9rem, 3.5vw, 2.4rem)/1.1 var(--font-display); color: var(--accent); }
+  dt { font-size: 0.85rem; color: var(--muted); margin-top: 0.35rem; line-height: 1.35; }
+
+  .sub { font-family: var(--font-body); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 3.5rem 0 1rem; }
+  .tags { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tags li { background: var(--accent-soft); color: var(--text); border-radius: 999px; padding: 0.4rem 0.9rem; font-size: 0.9rem; }
+
+  @media print {
+    .stats, .section-title { display: none; }
+    .sub { margin-top: 0.75rem; }
+    .tags li { background: none; padding: 0; }
+    .tags li:not(:last-child)::after { content: ' |'; }
+  }
+</style>

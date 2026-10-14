@@ -1,0 +1,40 @@
+---
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Experience from '../components/Experience.astro';
+import Projects from '../components/Projects.astro';
+import Credentials from '../components/Credentials.astro';
+import Footer from '../components/Footer.astro';
+import { profile } from '../data/resume';
+
+// The download button only renders once the PDF is in public/.
+const hasResume = existsSync(join(process.cwd(), 'public', profile.resumePdf));
+
+const projects = (await getCollection('projects', (p) => !p.data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const links = [
+  { href: '#about', label: 'About' },
+  { href: '#experience', label: 'Experience' },
+  ...(projects.length ? [{ href: '#projects', label: 'Projects' }] : []),
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<Base>
+  <Nav links={links} />
+  <main id="main">
+    <Hero hasResume={hasResume} />
+    <About />
+    <Experience />
+    {projects.length > 0 && <Projects projects={projects} />}
+    <Credentials />
+  </main>
+  <Footer />
+</Base>
