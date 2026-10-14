@@ -1,0 +1,73 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import Icon from '../../components/Icon.astro';
+import { profile } from '../../data/resume';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects', (p) => !p.data.draft);
+  return projects.map((project) => ({ params: { id: project.id }, props: { project } }));
+}
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+const { project } = Astro.props;
+const { Content } = await render(project);
+const { title, summary, date, tags, link, repo } = project.data;
+const dateLabel = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+---
+
+<Base title={`${title} — ${profile.name}`} description={summary}>
+  <Nav hasProjects={true} />
+  <main id="main">
+    <article class="container">
+      <header class="head">
+        <a class="back" href="/#projects"><span aria-hidden="true">←</span> All projects</a>
+        <p class="eyebrow">Project · <time datetime={date.toISOString()}>{dateLabel}</time></p>
+        <h1>{title}</h1>
+        <p class="lede">{summary}</p>
+        {tags.length > 0 && <ul class="tags">{tags.map((t) => <li>{t}</li>)}</ul>}
+        <div class="ctas">
+          {repo && <a class="btn btn-primary" href={repo} target="_blank" rel="noopener"><Icon name="github" /> View code</a>}
+          {link && <a class="btn" href={link} target="_blank" rel="noopener"><Icon name="arrow" /> Live</a>}
+        </div>
+      </header>
+
+      <div class="prose">
+        <Content />
+      </div>
+    </article>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  article { padding-block: clamp(2.5rem, 7vw, 5rem) clamp(3.5rem, 8vw, 6rem); }
+  .head { max-width: 46rem; padding-bottom: 2.5rem; margin-bottom: 2.5rem; border-bottom: 1px solid var(--line); }
+  .back { display: inline-block; color: var(--muted); text-decoration: none; font-size: 0.92rem; margin-bottom: 2rem; }
+  .back:hover { color: var(--accent); }
+  h1 { font-size: clamp(2.25rem, 6vw, 3.75rem); font-weight: 400; letter-spacing: -0.015em; margin-bottom: 1.25rem; }
+  .lede { font-family: var(--font-display); font-size: clamp(1.15rem, 2.2vw, 1.4rem); line-height: 1.45; }
+  .tags { list-style: none; margin: 0 0 1.75rem; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tags li { font-size: 0.82rem; background: var(--accent-soft); padding: 0.25rem 0.7rem; border-radius: 999px; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+  .prose { max-width: 68ch; }
+  .prose :global(h2) { font-size: 1.6rem; font-weight: 400; margin: 2.75rem 0 0.9rem; }
+  .prose :global(h2:first-child) { margin-top: 0; }
+  .prose :global(p), .prose :global(li) { color: var(--text); }
+  .prose :global(ul) { padding-left: 1.2rem; margin: 0 0 1em; }
+  .prose :global(li) { margin-bottom: 0.4rem; }
+  .prose :global(li::marker) { color: var(--accent); }
+  .prose :global(code) { font-family: ui-monospace, 'Cascadia Code', Consolas, monospace; font-size: 0.88em; background: var(--accent-soft); padding: 0.1em 0.35em; border-radius: 4px; }
+  .prose :global(pre) {
+    background: var(--surface) !important; color: var(--text) !important;
+    border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 1.1rem 1.25rem; overflow-x: auto; font-size: 0.85rem; line-height: 1.55; margin: 0 0 1.25em;
+  }
+  .prose :global(pre code) { background: none; padding: 0; font-size: inherit; font-variant-ligatures: none; }
+  .prose :global(pre span) { color: inherit !important; }
+</style>

@@ -18,17 +18,10 @@ const hasResume = existsSync(join(process.cwd(), 'public', profile.resumePdf));
 const projects = (await getCollection('projects', (p) => !p.data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
-
-const links = [
-  { href: '#about', label: 'About' },
-  { href: '#experience', label: 'Experience' },
-  ...(projects.length ? [{ href: '#projects', label: 'Projects' }] : []),
-  { href: '#contact', label: 'Contact' },
-];
 ---
 
 <Base>
-  <Nav links={links} />
+  <Nav hasProjects={projects.length > 0} />
   <main id="main">
     <Hero hasResume={hasResume} />
     <About />

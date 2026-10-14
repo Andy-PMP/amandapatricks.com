@@ -3,14 +3,22 @@ import Icon from './Icon.astro';
 import { profile } from '../data/resume';
 
 interface Props {
-  links: { href: string; label: string }[];
+  hasProjects: boolean;
 }
-const { links } = Astro.props;
+const { hasProjects } = Astro.props;
+
+// Absolute (/#…) so they work from project pages too.
+const links = [
+  { href: '/#about', label: 'About' },
+  { href: '/#experience', label: 'Experience' },
+  ...(hasProjects ? [{ href: '/#projects', label: 'Projects' }] : []),
+  { href: '/#contact', label: 'Contact' },
+];
 ---
 
 <header class="nav no-print">
   <div class="container nav-inner">
-    <a href="#top" class="brand" aria-label={`${profile.name}, back to top`}>
+    <a href="/" class="brand" aria-label={`${profile.name}, home`}>
       <span class="mono" aria-hidden="true">AP</span>
       <span class="brand-name">{profile.name}</span>
     </a>

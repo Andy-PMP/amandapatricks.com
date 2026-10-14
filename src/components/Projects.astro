@@ -15,12 +15,13 @@ const { projects } = Astro.props;
     <ul class="grid">
       {projects.map((p) => (
         <li class="card reveal">
-          <h3>{p.data.title}</h3>
+          <h3><a href={`/projects/${p.id}/`}>{p.data.title}</a></h3>
           <p class="summary">{p.data.summary}</p>
           {p.data.tags.length > 0 && (
             <ul class="tags">{p.data.tags.map((t) => <li>{t}</li>)}</ul>
           )}
           <div class="links">
+            <a href={`/projects/${p.id}/`}>Read more <span aria-hidden="true">→</span></a>
             {p.data.link && <a href={p.data.link} target="_blank" rel="noopener">View <Icon name="arrow" /></a>}
             {p.data.repo && <a href={p.data.repo} target="_blank" rel="noopener">Code <Icon name="arrow" /></a>}
           </div>
@@ -36,6 +37,8 @@ const { projects } = Astro.props;
   .card { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; transition: border-color 0.2s; }
   .card:hover { border-color: var(--accent); }
   h3 { font-size: 1.35rem; font-weight: 400; margin-bottom: 0.6rem; }
+  h3 a { color: var(--text); text-decoration: none; }
+  h3 a:hover { color: var(--accent); }
   .summary { color: var(--muted); font-size: 0.97rem; }
   .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
   .tags li { font-size: 0.78rem; background: var(--accent-soft); padding: 0.2rem 0.6rem; border-radius: 999px; }
