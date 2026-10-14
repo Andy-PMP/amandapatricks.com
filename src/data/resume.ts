@@ -80,7 +80,7 @@ export const experience: Company[] = [
           'Developed executive reporting program that transformed monthly updates into strategic engagements, delivering full portfolio visibility within executive time constraints and enabling informed decision-making',
           'Applied AI-driven automation to program operations — designing workflows that eliminated manual reporting overhead and accelerated executive reporting cycles',
           'Led, coached, and developed a team of program managers through hands-on mentorship and a structured rotation program now in its fifth year with one alumnus promoted to manager',
-          'Founded and administered PM community of hundreds across the organization, running programming and a book club for four years',
+          'Founded and administered PM community of hundreds across the organization, running structured programming and leading a book club for four years',
         ],
       },
       {
@@ -88,7 +88,6 @@ export const experience: Company[] = [
         dates: 'September 2019 – October 2023',
         bullets: [
           'Led multiyear enterprise program exiting and right-sizing 30+ facilities across 15+ global locations — coordinating cross-functional teams of 25–30 across engineering, finance, real estate, and operations, delivering tens of millions in annual OpEx savings',
-          'Identified cross-program dependency between reactive infrastructure replacement and ML predictive maintenance initiative — facilitated data integration that produced a working predictive model and eliminated dedicated on-call support overhead',
           'Reduced heavy equipment shipping incidents by 90% through a cross-functional safety program combining engineering redesign and hands-on site training',
           'Eliminated overnight logistics shifts through pilot and implementation of automated equipment vending and locker systems — 80% of replacement parts now issued on demand',
           'Compressed a 90-day construction program to 30 days under active COVID-19 restrictions — doubling infrastructure build-out capacity and resolving a critical organizational bottleneck',
@@ -102,7 +101,7 @@ export const experience: Company[] = [
     note: 'Lenovo Contractor',
     roles: [
       {
-        title: 'Project Manager',
+        title: 'Program Manager',
         dates: 'April 2018 – August 2019',
         bullets: [
           'Managed a $2M global programs portfolio coordinating across legal, finance, product, and field operations',
