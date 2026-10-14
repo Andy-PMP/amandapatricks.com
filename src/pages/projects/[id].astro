@@ -31,8 +31,8 @@ const dateLabel = date.toLocaleDateString('en-US', { month: 'long', year: 'numer
         <p class="lede">{summary}</p>
         {tags.length > 0 && <ul class="tags">{tags.map((t) => <li>{t}</li>)}</ul>}
         <div class="ctas">
-          {repo && <a class="btn btn-primary" href={repo} target="_blank" rel="noopener"><Icon name="github" /> View code</a>}
-          {link && <a class="btn" href={link} target="_blank" rel="noopener"><Icon name="arrow" /> Live</a>}
+          {link && <a class="btn btn-primary" href={link} target="_blank" rel="noopener"><Icon name="arrow" /> Try it live</a>}
+          {repo && <a class={link ? 'btn' : 'btn btn-primary'} href={repo} target="_blank" rel="noopener"><Icon name="github" /> View code</a>}
         </div>
       </header>
 
