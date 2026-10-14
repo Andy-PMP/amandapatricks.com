@@ -56,7 +56,7 @@ export const experience: Company[] = [
     name: 'Capital One',
     roles: [
       {
-        title: 'Manager, Program Management',
+        title: 'Strategic Implementation Manager',
         dates: 'May 2026 – Present',
         bullets: [
           'Led cross-functional program management efforts supporting strategic transformation initiatives across Commercial Bank, Office of the President',
@@ -115,7 +115,7 @@ export const experience: Company[] = [
     name: 'Qualys',
     roles: [
       {
-        title: 'Technical Account Manager',
+        title: 'Account Manager',
         dates: 'January 2017 – November 2017',
         bullets: [
           'Managed $2M+ renewal portfolio across 200 mid-market enterprise accounts, driving 20% upsell growth through strategic account planning and executive relationship management',
@@ -127,7 +127,7 @@ export const experience: Company[] = [
     name: 'Cisco Systems',
     roles: [
       {
-        title: 'Infrastructure Project Manager',
+        title: 'Project Manager',
         dates: 'July 2015 – September 2016',
         bullets: [
           'Directed global deployment and decommission of cloud infrastructure across 7 sites in 4 countries, coordinating teams across multiple time zones',
