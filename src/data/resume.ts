@@ -15,7 +15,7 @@ export const profile = {
 export const summary = [
   'Senior program and portfolio leader with 12+ years of experience building the execution infrastructure that turns strategy into measurable outcomes.',
   'At Apple, I progressed from Senior Program Manager to Manager — building PMO governance frameworks from scratch, delivering enterprise programs that saved tens of millions in annual OpEx, and operating at the executive level across engineering, finance, operations, and real estate at global scale. I’m equally effective as a strategic partner and a hands-on executor.',
-  'I’m completing an M.S. in AI Engineering (August 2027), applying AI tools to program operations, reporting automation, and workflow design.',
+  'I’m completing an M.S. in AI Engineering (August 2027), building AI applications and applying AI tools to program operations, reporting automation, and workflow design.',
 ];
 
 export const stats = [
