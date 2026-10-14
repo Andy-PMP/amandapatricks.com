@@ -59,9 +59,9 @@ export const experience: Company[] = [
         title: 'Manager, Program Management',
         dates: 'May 2026 – Present',
         bullets: [
-          'Lead cross-functional program management efforts supporting strategic transformation initiatives across Commercial Bank, Office of the President',
+          'Led cross-functional program management efforts supporting strategic transformation initiatives across Commercial Bank, Office of the President',
           'Built governance frameworks, operating rhythms, and KPI reporting infrastructure from scratch',
-          'Develop executive reporting and dashboard communications for senior leadership',
+          'Developed executive reporting and dashboard communications for senior leadership',
           'Identified and socialized AI tool proposals spanning chat-based through agentic workflows to improve team capacity and operational effectiveness',
         ],
       },
