@@ -1,57 +1,53 @@
 ---
 title: Game Asset Library Browser
-summary: A Python cataloger and a single-file HTML browser that made my 89,890-file game asset library searchable, with thumbnails, audio previews and my own tags, all running offline with no server.
+summary: A Python cataloger and a single-file HTML browser that made my 89,890-file game asset library searchable, with thumbnails, audio previews, and my own tags, all running offline with no server.
 date: 2026-10-14
-tags: [Python, SQLite, JavaScript, Pillow, Game Dev]
+tags: [Python, SQLite, JavaScript, Pillow]
 repo: https://github.com/Andy-PMP/assetlibrary
 ---
 
+![The asset browser: a searchable grid of pixel-art sprites, tiles and audio clips, with tags, filters, and a count of 89,890 assets](../../assets/projects/asset-library-browser.png)
+
+*The real `browser.html`, shown with a demo catalog. The pixel art is placeholder art I generated to stand in for my licensed assets.*
+
 ## The problem
 
-I've collected a lot of game assets: sprites, tilesets, UI pieces, sound effects and music, each in a folder named for the asset pack it came from. When I finally counted, it was **89,890 files**.
-
-Finding "a wooden door sprite" or "a short coin pickup sound" meant opening pack after pack in File Explorer and hoping. Audio was worse, since there's no thumbnail to scan; you have to play each file. At that size, the library was close to unusable.
-
-I wanted to search and browse all of it at once, without uploading anything or running a server.
+My game asset library had grown to **89,890 files (27.6 GB) across 142 packs**: sprites, tilesets, sound effects, music. Finding the right sprite or sound meant clicking through folders one at a time, with no way to search across packs, preview audio in place, or tag files by how I'd actually use them.
 
 ## What it does
 
-Two Python scripts build a catalog, and one HTML file browses it:
-
-- **Catalog**: walks the library and records each file's path, name, type, pack, folder, size and, for images, pixel dimensions in a SQLite database, then prints a breakdown by file type
-- **Export**: turns the database into data the browser page can load
-- **Browse**: a grid of cards with image thumbnails and playable audio, search across filename, folder, pack and tags, filters for images and audio, and a full-size image viewer
-- **Tags**: add my own keywords to any asset, or tag every search result at once (a whole pack, for example), and search by them
+- **Catalogs everything**: one command scans the whole library into a database and prints a summary by type and extension
+- **Browses it visually**: a grid of thumbnails for 47,681 images and inline players for 36,210 audio files
+- **Searches instantly** across filename, folder, pack, and tags, with image/audio filters
+- **Tags as you go**: tag one card, or tag every result of a search in one step
+- **Runs fully offline**: no server, no install beyond Python and Pillow. You open an HTML file and it works.
 
 ## How it works
 
-The catalog script reads image dimensions with Pillow, which only needs the file header rather than decoding the whole image. Rows go into SQLite in batches of 1,000 inside a single transaction.
+It's three small pieces with a clear hand-off between them:
 
-The browser is one self-contained HTML file opened straight from disk. Browsers won't let a page opened from `file://` fetch a local JSON file, so the export also writes the data as a JavaScript file that the page loads with an ordinary `<script>` tag. That one decision is what makes "double-click to open, no server" work.
+1. **`catalog.py`** walks the library and writes one row per file to SQLite: path, pack, folder, type, size, and image dimensions. It reads only each image's header to get dimensions, inserts in batches of 1,000, and does the full rescan in a single transaction, so an interrupted scan never leaves a half-written catalog.
+2. **`export_json.py`** turns the database into JSON for the browser. Browsers won't let a page opened from disk (`file://`) load a local JSON file, so it also writes the same data as a small script the page *can* load. The page falls back to a file picker if only the JSON is present.
+3. **`browser.html`** is a single self-contained page with no frameworks or build step, and it follows the system's light or dark mode.
 
-Drawing 89,890 cards at once would freeze the page, so the grid renders 200 at a time and adds more as you scroll. Images lazy-load, audio players don't download anything until you press play, and starting one sound pauses the others.
+## Built to stay fast with 90,000 files
 
-## Tags without a server
+Loading tens of thousands of thumbnails and audio players at once would freeze any browser, so the page only does work for what's on screen:
 
-A static page can't write to a database, so tagging syncs in two steps:
+- **Infinite scroll** renders 200 cards at a time as you approach the bottom
+- **Lazy loading**: images load only when scrolled into view, and audio doesn't load until you press play
+- **Debounced search** waits for a pause in typing, then matches against a precomputed search string per asset
+- **One sound at a time**: starting a clip pauses whatever else is playing
 
-- Tag edits save instantly in the browser, and a counter shows how many haven't been synced yet
-- **Export tags** downloads them, and `import_tags.py` merges them into SQLite and regenerates the page data
-- On the next reload, the page sees its edits are now in the database and clears its local copy
+It also has a few quality-of-life touches: a lightbox for full-size images on a checkerboard background (so transparency is visible), and a **pixel-art scaling** toggle that keeps retro sprites crisp instead of blurry.
 
-Tags live in their own table keyed by file path, so rescanning the library never wipes them.
+## Tags that survive rescans
 
-## Touches for game art
+Tagging needed to be instant in the browser but also durable. Here's the round trip:
 
-- A **pixel art scaling** toggle keeps tiny sprites crisp instead of blurry when they're enlarged
-- A checkerboard behind each thumbnail makes transparent PNGs visible
-- Light and dark mode follow the system setting
+1. Tag edits save in the browser immediately, and an **"N unsynced"** counter shows what hasn't been stored yet.
+2. **Export tags** downloads a `tags.json` file.
+3. `import_tags.py` finds the newest export in Downloads, merges it into the database, and regenerates the browser data.
+4. On reload, the page sees the edits are now stored and clears the unsynced count on its own.
 
-## Usage
-
-```text
-pip install Pillow
-python catalog.py "D:\GameAssets"
-python export_json.py
-# then open browser.html in any browser
-```
+Tags are keyed by **file path** rather than database row, so they survive a full rescan of the library.
