@@ -14,6 +14,8 @@ const projects = defineCollection({
     link: z.string().url().optional(),
     repo: z.string().url().optional(),
     draft: z.boolean().default(false),
+    // Screenshot for the link-preview card: a file name in src/assets/projects/
+    cover: z.string().optional(),
   }),
 });
 

@@ -4,6 +4,7 @@ summary: A Python cataloger and a single-file HTML browser that made my 89,890-f
 date: 2026-10-14
 tags: [Python, SQLite, JavaScript, Pillow]
 repo: https://github.com/Andy-PMP/assetlibrary
+cover: asset-library-browser.png
 ---
 
 ![The asset browser: a searchable grid of pixel-art sprites, tiles and audio clips, with tags, filters, and a count of 89,890 assets](../../assets/projects/asset-library-browser.png)

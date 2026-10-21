@@ -5,6 +5,7 @@ date: 2026-10-14
 tags: [TypeScript, React, PokéAPI, Cloudflare Pages]
 link: https://pokebot-1g7.pages.dev/
 repo: https://github.com/Andy-PMP/pokebot
+cover: pokebot.png
 ---
 
 ![Pokebot's Versus tab: Gyarados looked up as the opponent, with Electric ×4 and Rock ×2 as the types to hit it with, and a saved team ranked from "Send it out" (Pikachu) to "Keep it benched" (Charizard)](../../assets/projects/pokebot.png)

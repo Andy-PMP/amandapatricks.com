@@ -5,6 +5,7 @@ date: 2026-10-15
 tags: [Python, Plotly Dash, pandas, AI-assisted data, Render]
 link: https://garden-seeds.onrender.com/
 repo: https://github.com/Andy-PMP/gardendata
+cover: garden-seeds.png
 ---
 
 ![The Plant Now tab on October 15: 20 packets ready to sow, each card showing its planting window, category, sowing method, days to maturity, seed depth and storage bin, plus the next window opening Feb 1](../../assets/projects/garden-seeds.png)

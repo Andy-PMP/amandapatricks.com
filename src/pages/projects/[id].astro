@@ -20,7 +20,12 @@ const { title, summary, date, tags, link, repo } = project.data;
 const dateLabel = date.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
 ---
 
-<Base title={`${title} — ${profile.name}`} description={summary}>
+<Base
+  title={`${title} — ${profile.name}`}
+  description={summary}
+  ogImage={`/og/projects/${project.id}.png`}
+  ogImageAlt={`${title}: a project by ${profile.name}`}
+>
   <Nav hasProjects={true} />
   <main id="main">
     <article class="container">
