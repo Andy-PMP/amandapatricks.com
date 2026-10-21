@@ -7,10 +7,6 @@ link: https://neighborly.amandapatricks.com/
 repo: https://github.com/Andy-PMP/neighborly
 ---
 
-![Neighborly's end screen after solving the word "curious" on clue 7 of 8: a 2D map placing the answer among its eight clue words, and a table of every clue from farthest (horrified, neighbor rank 30) to closest (interesting, rank 1)](../../assets/projects/neighborly.png)
-
-*The end screen: the answer's neighborhood squeezed onto a 2D map, and every clue with its neighbor rank.*
-
 ## The idea
 
 Every day there's a hidden word. You see one clue at a time: words that are close to it **in meaning**, starting with a distant neighbor and getting closer with every wrong guess. Wrong guesses also get hot/cold feedback based on how close in meaning they are.
