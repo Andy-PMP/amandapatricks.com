@@ -5,11 +5,28 @@ date: 2026-10-22
 tags: [TypeScript, Astro, Python, NLP, Word embeddings]
 link: https://neighborly.amandapatricks.com/
 repo: https://github.com/Andy-PMP/neighborly
+cover: neighborly.png
 ---
+
+<div class="shot-narrow">
+
+![Neighborly's end screen after solving puzzle #1, "curious", on clue 7 of 8: a 2D map placing the answer among its eight clue words, and a table of every clue from farthest (horrified, neighbor rank 30) to closest (interesting, rank 1)](../../assets/projects/neighborly.png)
+
+</div>
+
+*Puzzle #1, replayed in practice mode: the answer's neighborhood squeezed onto a 2D map, and every clue with its neighbor rank.*
 
 ## The idea
 
 Every day there's a hidden word. You see one clue at a time: words that are close to it **in meaning**, starting with a distant neighbor and getting closer with every wrong guess. Wrong guesses also get hot/cold feedback based on how close in meaning they are.
+
+<div class="shot-narrow">
+
+![The guesses from that game with their feedback: table #6,597 Cold, music #3,325 Cool, happy #74 Warm, nervous #438 Mild, weird #44 Warm, interested #148 Mild, then curious, Correct](../../assets/projects/neighborly-feedback.png)
+
+</div>
+
+*Each wrong guess shows where it ranks among all 27,780 words, from Cold to Hot.*
 
 ## How it works
 

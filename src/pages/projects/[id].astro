@@ -64,7 +64,16 @@ const dateLabel = date.toLocaleDateString('en-US', { month: 'long', year: 'numer
   .prose :global(h2) { font-size: 1.6rem; font-weight: 400; margin: 2.75rem 0 0.9rem; }
   .prose :global(h2:first-child) { margin-top: 0; }
   .prose :global(p), .prose :global(li) { color: var(--text); }
-  .prose :global(ul) { padding-left: 1.2rem; margin: 0 0 1em; }
+  .prose :global(ul), .prose :global(ol) { padding-left: 1.2rem; margin: 0 0 1em; }
+  .prose :global(ol > li::marker) { font-weight: 600; }
+  /* Tables scroll sideways on narrow screens instead of stretching the page. */
+  .prose :global(table) {
+    display: block; max-width: 100%; overflow-x: auto; margin: 0 0 1.5em;
+    border-collapse: collapse; font-size: 0.92rem; line-height: 1.45;
+  }
+  .prose :global(th), .prose :global(td) { padding: 0.6rem 0.9rem 0.6rem 0; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  .prose :global(th) { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); border-bottom-color: var(--text); }
+  .prose :global(td:first-child) { font-weight: 600; white-space: nowrap; }
   .prose :global(li) { margin-bottom: 0.4rem; }
   .prose :global(li::marker) { color: var(--accent); }
   .prose :global(code) { font-family: ui-monospace, 'Cascadia Code', Consolas, monospace; font-size: 0.88em; background: var(--accent-soft); padding: 0.1em 0.35em; border-radius: 4px; }
@@ -79,6 +88,9 @@ const dateLabel = date.toLocaleDateString('en-US', { month: 'long', year: 'numer
     box-shadow: 0 12px 32px -16px rgb(0 0 0 / 0.25);
   }
   .prose :global(p:has(> img)) { margin-bottom: 0.6rem; }
+  /* Phone-shaped screenshots (2× captures): show at their real 1× size. */
+  .prose :global(.shot-narrow img) { max-width: min(100%, 528px); }
+  .prose :global(.shot-narrow + p > em:only-child) { display: block; color: var(--muted); font-size: 0.88rem; font-style: normal; margin-bottom: 2.5rem; }
   .prose :global(p:has(> img) + p > em:only-child) { display: block; color: var(--muted); font-size: 0.88rem; font-style: normal; margin-bottom: 2.5rem; }
   .prose :global(pre code) { background: none; padding: 0; font-size: inherit; font-variant-ligatures: none; }
   .prose :global(pre span) { color: inherit !important; }
