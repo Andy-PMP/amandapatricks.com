@@ -57,7 +57,7 @@ export const experience: Company[] = [
     roles: [
       {
         title: 'Strategic Implementation Manager',
-        dates: 'May 2026 – Present',
+        dates: 'May 2026 – October 2026',
         bullets: [
           'Led cross-functional program management efforts supporting strategic transformation initiatives across Commercial Bank, Office of the President',
           'Built governance frameworks, operating rhythms, and KPI reporting infrastructure from scratch',
